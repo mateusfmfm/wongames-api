@@ -61,6 +61,30 @@
         "videos",
         "audios"
       ]
+    },
+    "categories": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::category.category",
+      "mappedBy": "games"
+    },
+    "platforms": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::platform.platform",
+      "inversedBy": "games"
+    },
+    "developers": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::developer.developer",
+      "mappedBy": "games"
+    },
+    "publisher": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::publisher.publisher",
+      "inversedBy": "games"
     }
   }
 }
