@@ -505,6 +505,46 @@ export interface ApiDeveloperDeveloper extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiGameGame extends Struct.CollectionTypeSchema {
+  collectionName: 'games';
+  info: {
+    displayName: 'Game';
+    pluralName: 'games';
+    singularName: 'game';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    cover: Schema.Attribute.Media<'files' | 'images'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.RichText;
+    gallery: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios',
+      true
+    >;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::game.game'> &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    price: Schema.Attribute.Decimal &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<0>;
+    publishedAt: Schema.Attribute.DateTime;
+    rating: Schema.Attribute.Enumeration<
+      ['BR0', 'BR10', 'BR12', 'BR14', 'BR16', 'BR18']
+    >;
+    release_date: Schema.Attribute.Date;
+    short_description: Schema.Attribute.Text;
+    slug: Schema.Attribute.UID<'name'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiPlatformPlatform extends Struct.CollectionTypeSchema {
   collectionName: 'platforms';
   info: {
@@ -1080,6 +1120,7 @@ declare module '@strapi/strapi' {
       'admin::user': AdminUser;
       'api::category.category': ApiCategoryCategory;
       'api::developer.developer': ApiDeveloperDeveloper;
+      'api::game.game': ApiGameGame;
       'api::platform.platform': ApiPlatformPlatform;
       'api::publisher.publisher': ApiPublisherPublisher;
       'plugin::content-releases.release': PluginContentReleasesRelease;
